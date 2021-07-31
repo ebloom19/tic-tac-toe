@@ -20,11 +20,26 @@
     flex-wrap: wrap;
 }
 
+p.default {
+    display: none;
+}
+
+p.selected {
+    display: flex;
+    font-size: 100px;
+    width: 80px;
+    height: auto;
+
+}
+
 #r1c1 {
     height: 200px;
     width: 200px;
     border-right: solid black 2px;
     border-bottom: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #r1c2 {
@@ -33,6 +48,9 @@
     border-left: solid black 2px;
     border-bottom: solid black 2px;
     border-right: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #r1c3 {
@@ -40,6 +58,9 @@
     width: 200px;
     border-left: solid black 2px;
     border-bottom: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #r2c1 {
@@ -48,12 +69,18 @@
     border-top: solid black 2px;
     border-right: solid black 2px;
     border-bottom: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #r2c2 {
     height: 200px;
     width: 200px;
     border: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #r2c3 {
@@ -62,6 +89,9 @@
     border-top: solid black 2px;
     border-left: solid black 2px;
     border-bottom: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #r3c1 {
@@ -69,6 +99,9 @@
     width: 200px;
     border-top: solid black 2px;
     border-right: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #r3c2 {
@@ -76,6 +109,9 @@
     width: 200px;
     border-left: solid black 2px;
     border-right: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #r3c2 {
@@ -84,6 +120,9 @@
     border-top: solid black 2px;
     border-left: solid black 2px;
     border-right: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #r3c3 {
@@ -91,4 +130,7 @@
     width: 200px;
     border-top: solid black 2px;
     border-left: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

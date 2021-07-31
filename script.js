@@ -6,7 +6,10 @@ for (let selection of board) {
 }
 
 function addMove(event, piece) {
-    event.target.children[0].classList.toggle('selected')
+    event.target.children[0].classList.add('selected');
+
+    let move = event.target.children[0];
+    move.innerText = 'X'; // To put piece element here
 
 
 }
