@@ -31,3 +31,5 @@ function addMove(event) {
 
 
 }
+
+const checkedBoxes = document.getElementsByClassName('');
