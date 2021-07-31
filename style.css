@@ -34,8 +34,9 @@
     flex-wrap: wrap;
 }
 
-#select-piece-hidden {
-    display: none;
+#select-piece {
+    display: flex;
+    flex-direction: row;
 }
 
 p.default {
