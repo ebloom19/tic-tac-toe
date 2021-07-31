@@ -7,7 +7,12 @@
     align-items: center;
 }
 
-.container > h1 {
+#header {
+    display: flex;
+    flex-direction: row;
+}
+
+.container > #header > h1 {
     width: 200px;
     height: auto;
     margin: 15px 0 30px 0;
