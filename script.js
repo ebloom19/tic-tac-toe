@@ -39,6 +39,18 @@ function selection() {
 
 }
 
+
+function addMove(event) {
+    event.target.children[0].setAttribute('class', 'selected');
+    numberOfMoves = numberOfMoves + 1;
+
+    let move = event.target.children[0];
+    move.innerText = currentPlayer; 
+    console.log('number of moves ' + numberOfMoves);
+    moves();
+
+}
+
 let numberOfMoves = 0;
 let currentPlayer = '';
 function moves() {
@@ -46,25 +58,26 @@ function moves() {
     if (numberOfMoves < 9 && numberOfMoves % 2 === 0) {
         chooseYourPiece.innerText = 'Player 1 make your move';
         currentPlayer = playerOne;
+        checkForWin();
     } else {
         chooseYourPiece.innerText = 'Player 2 make your move';
         currentPlayer = playerTwo;
+        checkForWin();
     }
 }
 
 
+// bug to fix if player clicks box before peice slection no turns should be registered 
 
 
-function addMove(event) {
-    event.target.children[0].classList.add('selected');
-    numberOfMoves = numberOfMoves + 1;
+function checkForWin() {
+    let checkedBoxes = [];
+    let getCheckedBoxes = document.getElementsByClassName('selected');
+    for (let selected of getCheckedBoxes) {
+        selected = selected.parentElement.id;
+        selection.push(checkedBoxes);
+    }
 
-    let move = event.target.children[0];
-    move.innerText = currentPlayer; // To put piece element here
-    console.log('number of moves ' + numberOfMoves);
-    moves();
-
-
+    console.log("Checked boxes location: " + checkedBoxes);
 }
 
-const checkedBoxes = document.getElementsByClassName('');
