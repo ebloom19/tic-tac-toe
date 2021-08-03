@@ -55,6 +55,10 @@ p.selected {
     margin: 0 0 0 10px;
 }
 
+#score {
+    display: none;
+}
+
 #r1c1 {
     height: 200px;
     width: 200px;
