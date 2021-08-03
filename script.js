@@ -1,4 +1,6 @@
-
+// Sets the numebr of wins for playerOne and playerTwo
+let p1Wins = 0;
+let p2Wins = 0;
 
 // Find enter button
 const piece = document.getElementById('user-choice');
@@ -129,9 +131,7 @@ function check() {
 
 
 
-    // Sets the numebr of wins for playerOne and playerTwo
-    let p1Wins = 0;
-    let p2Wins = 0;
+
 
     // Function to check for a winning match
     // Takes three box positions as arguments
@@ -144,17 +144,73 @@ function check() {
             const index3 = checkedBoxes.indexOf(p3);
             // Checks to see if the pices wihtin the selcted boxes are equal
             if (piecesSelected[index1] == piecesSelected[index2] && piecesSelected[index2] == piecesSelected[index3]) {
+                
+                let a = document.getElementById(p1);
+                let b = document.getElementById(p2);
+                let c = document.getElementById(p3);
+
+                a.setAttribute('style', 'color: green');
+                b.setAttribute('style', 'color: green');
+                c.setAttribute('style', 'color: green');
+
                 // If the number of moves is even then playerTwo wins vice versa
+                let displayWinner = document.getElementById('player-text');
+                let dispalyScoreDiv = document.getElementById('score');
+                dispalyScoreDiv.setAttribute('style', 'display: flex; flex-direction: column;');
+
+                let displayP1Score = document.getElementById('player-one-score');
+                let displayP2Score = document.getElementById('player-two-score');
+
                 if (numberOfMoves % 2 === 0) {
                     p2Wins = p2Wins + 1;
-                    alert("Player 2 wins!!");
-                    // Reloads the page
-                    location.reload();
+                    sessionStorage.setItem('p2Wins', p2Wins);
+                    displayWinner.innerText = 'Player 2 wins!';
+                    displayP1Score.innerText = 'Player 1 = ' + p1Wins;
+                    displayP2Score.innerText = 'Player 2 = ' + p2Wins;
                 } else {
                     p1Wins = p1Wins + 1;
-                    alert("Player 1 wins!!");
-                    // Reloads the page
-                    location.reload();
+                    displayWinner.innerText  = 'Player 1 wins!';
+                    displayP1Score.innerText = 'Player 1 = ' + p1Wins;
+                    displayP2Score.innerText = 'Player 2 = ' + p2Wins;
+                }
+
+                // Ensures the player cannot continue to click on a box after a win
+                let board = document.getElementById('game-board').children;
+                for (let selection of board) {
+                    selection.removeEventListener('click', addMove);
+                }
+
+
+                if (document.getElementById('play-again') !== null) {
+                    //
+                } else {
+                    let playAgain = document.createElement('button');
+                    playAgain.innerText = 'Play Again';
+                    playAgain.setAttribute('id', 'play-again');
+                    dispalyScoreDiv.append(playAgain);
+                    playAgain.addEventListener('click', refresh);
+                }
+
+
+
+                function refresh() {
+                    let refreshAll = document.getElementsByClassName('selected');
+                    numberOfMoves = 0;
+                    currentPlayer = playerOne;
+                    displayWinner.innerText = 'Player 1 make your move';
+
+                    for (let selection of board) {
+                        selection.addEventListener('click', addMove);
+                    }
+
+                    while (refreshAll.length > 0) {
+                        for (let remove of refreshAll) {
+                            remove.innerText = '';
+                            remove.parentElement.removeAttribute('style');
+                            remove.removeAttribute('class');
+                            remove.setAttribute('class', 'default');
+                        }
+                    }
                 }
             }
         }
@@ -183,5 +239,8 @@ function check() {
 
 
 // Functionality to add:
-// Tally number of wins for each player
+// Tally number of wins for each player (Use localStorage)
+// Add vs pc option
+// Add css transition or filter to show win
+// Add 4x4, 5x5 options
 
