@@ -1,9 +1,4 @@
-let board = document.getElementById('game-board').children;
-console.log(board);
 
-for (let selection of board) {
-    selection.addEventListener('click', addMove);
-}
 
 
 const piece = document.getElementById('user-choice');
@@ -40,20 +35,16 @@ function selection() {
 }
 
 
-function addMove(event) {
-    event.target.children[0].setAttribute('class', 'selected');
-    numberOfMoves = numberOfMoves + 1;
-
-    let move = event.target.children[0];
-    move.innerText = currentPlayer; 
-    console.log('number of moves ' + numberOfMoves);
-    moves();
-
-}
-
 let numberOfMoves = 0;
 let currentPlayer = '';
 function moves() {
+    let board = document.getElementById('game-board').children;
+    console.log(board);
+    
+    for (let selection of board) {
+        selection.addEventListener('click', addMove);
+    }
+
     let chooseYourPiece = document.getElementById('player-text');
     if (numberOfMoves < 9 && numberOfMoves % 2 === 0) {
         chooseYourPiece.innerText = 'Player 1 make your move';
@@ -66,13 +57,22 @@ function moves() {
     }
 }
 
+function addMove(event) {
+    event.target.children[0].setAttribute('class', 'selected');
+    numberOfMoves = numberOfMoves + 1;
+
+    let move = event.target.children[0];
+    move.innerText = currentPlayer; 
+    console.log('number of moves ' + numberOfMoves);
+    moves();
+
+}
+
+
 // Bugs to fix:
-// If player clicks box before peice slection no turns should be registered
 // End game after a player wins
-// User should not be able to click on a box twice 
 
 // Functionality to add:
-// Defining if player one or two won (Rather than X or O)
 // Tally number of wins for each player
 
 function check() {
@@ -96,32 +96,29 @@ function check() {
             const index3 = checkedBoxes.indexOf(p3);
             if (piecesSelected[index1] == piecesSelected[index2] && piecesSelected[index2] == piecesSelected[index3]) {
                 let winner = piecesSelected[index1];
-                alert("The winner is: " + winner);
+                if (numberOfMoves % 2 === 0) {
+                    alert("Player 2 wins!!");
+                } else {
+                    alert("Player 1 wins!!");
+                }
             }
         }
     }
 
     // Win column 1
     checkForWin('r1c1', 'r2c1', 'r3c1');
-
     // Win column 2
     checkForWin('r1c2', 'r2c2', 'r3c2');
-
     // Win column 3
     checkForWin('r1c3', 'r2c3', 'r3c3');
-
     // Win row 1
     checkForWin('r1c1', 'r1c2', 'r1c3');
-
     // Win row 2
     checkForWin('r2c1', 'r2c2', 'r2c3');
-
     // Win row 3
     checkForWin('r3c1', 'r3c2', 'r3c3');
-
     // Win diagonal left to right
     checkForWin('r1c1', 'r2c2', 'r3c3');
-
     // Win diagonal right to left
     checkForWin('r1c3', 'r2c2', 'r3c1');
 }
