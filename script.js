@@ -127,22 +127,7 @@ function check() {
 
     console.log("Checked boxes location: " + checkedBoxes + ' ' + piecesSelected);
 
-    // Win column 1 
-    checkForWin('r1c1', 'r2c1', 'r3c1');
-    // Win column 2
-    checkForWin('r1c2', 'r2c2', 'r3c2');
-    // Win column 3
-    checkForWin('r1c3', 'r2c3', 'r3c3');
-    // Win row 1
-    checkForWin('r1c1', 'r1c2', 'r1c3');
-    // Win row 2
-    checkForWin('r2c1', 'r2c2', 'r2c3');
-    // Win row 3
-    checkForWin('r3c1', 'r3c2', 'r3c3');
-    // Win diagonal left to right
-    checkForWin('r1c1', 'r2c2', 'r3c3');
-    // Win diagonal right to left
-    checkForWin('r1c3', 'r2c2', 'r3c1');
+
 
     // Sets the numebr of wins for playerOne and playerTwo
     let p1Wins = 0;
@@ -174,6 +159,24 @@ function check() {
             }
         }
     }
+
+        // Win column 1 
+        checkForWin('r1c1', 'r2c1', 'r3c1');
+        // Win column 2
+        checkForWin('r1c2', 'r2c2', 'r3c2');
+        // Win column 3
+        checkForWin('r1c3', 'r2c3', 'r3c3');
+        // Win row 1
+        checkForWin('r1c1', 'r1c2', 'r1c3');
+        // Win row 2
+        checkForWin('r2c1', 'r2c2', 'r2c3');
+        // Win row 3
+        checkForWin('r3c1', 'r3c2', 'r3c3');
+        // Win diagonal left to right
+        checkForWin('r1c1', 'r2c2', 'r3c3');
+        // Win diagonal right to left
+        checkForWin('r1c3', 'r2c2', 'r3c1');
+
 }
 
 // Bugs to fix:
