@@ -58,26 +58,71 @@ function moves() {
     if (numberOfMoves < 9 && numberOfMoves % 2 === 0) {
         chooseYourPiece.innerText = 'Player 1 make your move';
         currentPlayer = playerOne;
-        checkForWin();
+        check();
     } else {
         chooseYourPiece.innerText = 'Player 2 make your move';
         currentPlayer = playerTwo;
-        checkForWin();
+        check();
     }
 }
 
+// Bugs to fix:
+// If player clicks box before peice slection no turns should be registered
+// End game after a player wins
+// User should not be able to click on a box twice 
 
-// bug to fix if player clicks box before peice slection no turns should be registered 
+// Functionality to add:
+// Defining if player one or two won (Rather than X or O)
+// Tally number of wins for each player
 
-
-function checkForWin() {
+function check() {
     let checkedBoxes = [];
+    let piecesSelected = [];
     let getCheckedBoxes = document.getElementsByClassName('selected');
     for (let selected of getCheckedBoxes) {
-        selected = selected.parentElement.id;
-        selection.push(checkedBoxes);
+        let boxes = selected.parentElement.id;
+        checkedBoxes.unshift(boxes);
+        let piece = selected.parentElement.innerText;
+        piecesSelected.unshift(piece);
     }
 
-    console.log("Checked boxes location: " + checkedBoxes);
+    console.log("Checked boxes location: " + checkedBoxes + ' ' + piecesSelected);
+
+
+    function checkForWin(p1, p2, p3) {
+        if (checkedBoxes.includes(p1) === true && checkedBoxes.includes(p2) === true && checkedBoxes.includes(p3) === true) {
+            const index1 = checkedBoxes.indexOf(p1);
+            const index2 = checkedBoxes.indexOf(p2);
+            const index3 = checkedBoxes.indexOf(p3);
+            if (piecesSelected[index1] == piecesSelected[index2] && piecesSelected[index2] == piecesSelected[index3]) {
+                let winner = piecesSelected[index1];
+                alert("The winner is: " + winner);
+            }
+        }
+    }
+
+    // Win column 1
+    checkForWin('r1c1', 'r2c1', 'r3c1');
+
+    // Win column 2
+    checkForWin('r1c2', 'r2c2', 'r3c2');
+
+    // Win column 3
+    checkForWin('r1c3', 'r2c3', 'r3c3');
+
+    // Win row 1
+    checkForWin('r1c1', 'r1c2', 'r1c3');
+
+    // Win row 2
+    checkForWin('r2c1', 'r2c2', 'r2c3');
+
+    // Win row 3
+    checkForWin('r3c1', 'r3c2', 'r3c3');
+
+    // Win diagonal left to right
+    checkForWin('r1c1', 'r2c2', 'r3c3');
+
+    // Win diagonal right to left
+    checkForWin('r1c3', 'r2c2', 'r3c1');
 }
 

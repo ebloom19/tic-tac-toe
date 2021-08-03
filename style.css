@@ -51,6 +51,10 @@ p.selected {
 
 }
 
+#user-choice {
+    margin: 0 0 0 10px;
+}
+
 #r1c1 {
     height: 200px;
     width: 200px;
