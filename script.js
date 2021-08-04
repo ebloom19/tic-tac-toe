@@ -195,9 +195,21 @@ function check() {
 
                 function refresh() {
                     let refreshAll = document.getElementsByClassName('selected');
-                    numberOfMoves = 0;
-                    currentPlayer = playerOne;
-                    displayWinner.innerText = 'Player 1 make your move';
+
+                    // Add alternating fisrt player functionality
+
+                    let numberOfGames = p1Wins + p2Wins;
+
+                    if (numberOfGames % 2 === 0) {
+                        numberOfMoves = 0;
+                        currentPlayer = playerOne;
+                        displayWinner.innerText = 'Player 1 make your move';
+                    } else {
+                        numberOfMoves = -1;
+                        currentPlayer = playerTwo;
+                        displayWinner.innerText = 'Player 2 make your move';
+                    }
+
 
                     for (let selection of board) {
                         selection.addEventListener('click', addMove);
@@ -243,4 +255,6 @@ function check() {
 // Add vs pc option
 // Add css transition or filter to show win
 // Add 4x4, 5x5 options
+// Add alternating first turn player
+// Add draw function
 
