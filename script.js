@@ -94,6 +94,7 @@ function moves() {
 // This function displays the players move on the board
 // Uses the event as an argument to locate the selected box
 function addMove(event) {
+    event.target.removeEventListener('click', addMove);
     // Sets the class to selected of the first child element of the target element
     event.target.children[0].setAttribute('class', 'selected');
     // Adds 1 to the numberOfMoves counter
@@ -104,6 +105,7 @@ function addMove(event) {
     // Sets move elemtn text to the currentPlayer piece
     move.innerText = currentPlayer; 
     console.log('number of moves ' + numberOfMoves);
+
     // Calls on the moves function above
     moves();
 
@@ -191,39 +193,40 @@ function check() {
                     playAgain.addEventListener('click', refresh);
                 }
 
+            }
+        }
+    }
+
+    function refresh() {
+        let refreshAll = document.getElementsByClassName('selected');
+        let displayWinner = document.getElementById('player-text');
+        let board = document.getElementById('game-board').children;
+
+        // Add alternating fisrt player functionality
+
+        let numberOfGames = p1Wins + p2Wins;
+
+        if (numberOfGames % 2 === 0) {
+            numberOfMoves = 0;
+            currentPlayer = playerOne;
+            displayWinner.innerText = 'Player 1 make your move';
+        } else {
+            numberOfMoves = 0;
+            currentPlayer = playerTwo;
+            displayWinner.innerText = 'Player 2 make your move';
+        }
 
 
-                function refresh() {
-                    let refreshAll = document.getElementsByClassName('selected');
+        for (let selection of board) {
+            selection.addEventListener('click', addMove);
+        }
 
-                    // Add alternating fisrt player functionality
-
-                    let numberOfGames = p1Wins + p2Wins;
-
-                    if (numberOfGames % 2 === 0) {
-                        numberOfMoves = 0;
-                        currentPlayer = playerOne;
-                        displayWinner.innerText = 'Player 1 make your move';
-                    } else {
-                        numberOfMoves = -1;
-                        currentPlayer = playerTwo;
-                        displayWinner.innerText = 'Player 2 make your move';
-                    }
-
-
-                    for (let selection of board) {
-                        selection.addEventListener('click', addMove);
-                    }
-
-                    while (refreshAll.length > 0) {
-                        for (let remove of refreshAll) {
-                            remove.innerText = '';
-                            remove.parentElement.removeAttribute('style');
-                            remove.removeAttribute('class');
-                            remove.setAttribute('class', 'default');
-                        }
-                    }
-                }
+        while (refreshAll.length > 0) {
+            for (let remove of refreshAll) {
+                remove.innerText = '';
+                remove.parentElement.removeAttribute('style');
+                remove.removeAttribute('class');
+                remove.setAttribute('class', 'default');
             }
         }
     }
@@ -244,6 +247,12 @@ function check() {
         checkForWin('r1c1', 'r2c2', 'r3c3');
         // Win diagonal right to left
         checkForWin('r1c3', 'r2c2', 'r3c1');
+
+        if (numberOfMoves == 9) {
+            alert('Draw! Click to play again:')
+            
+            refresh();
+        }
 
 }
 
