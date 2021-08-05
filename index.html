@@ -16,22 +16,6 @@
         <div id="header">
             <h1>Tic-Tac-Toe</h1>
         </div>
-        <div id="aside">
-            <h3 id="player-text">Player 1 choose your piece:</h3>
-            <div id="select-piece">
-                <input type="radio" id="nought"
-                name="checker" value="O">
-                <label for="nought">Noughts</label>
-                <input type="radio" id="cross"
-                name="checker" value="X">
-                <label for="naught">Crosses</label></br>
-                <button id="user-choice">Enter</button>
-            </div>
-            <div id="score">
-                <p id="player-one-score">Player 1: </p>
-                <p id="player-two-score">Player 2: </p>
-            </div>
-        </div>
         <div id="game-board">
             <div id="r1c1" class="box">
                 <p class="default"></p>
@@ -59,6 +43,14 @@
             </div>
             <div id="r3c3" class="box">
                 <p class="default"></p>
+            </div>
+        </div>
+        <div id="aside">
+            <h3 id="player-text"></h3>
+            <div id="select-piece">
+                <p class="score" id="player-one-score">Player 1 (X)</p>
+                <p class="score" id="player-two-score">Player 2 (O)</p>
+                <button class="buttons" id="begin">Start</button>
             </div>
         </div>
     </div>

@@ -3,64 +3,22 @@ let p1Wins = 0;
 let p2Wins = 0;
 
 // Find enter button
-const piece = document.getElementById('user-choice');
+const piece = document.getElementById('begin');
 // Add on click event listener to the enter button
-piece.addEventListener('click', selection);
+piece.addEventListener('click', moves);
 
 // Setting blank PlayerOne & PlayerTwo elements
-let playerOne = '';
-let playerTwo = '';
-
-// Function to check for PlayerOne & PlayerTwo piece selection
-function selection() {
-    // Locates radio elements
-    const selectedPiece = document.querySelectorAll('input[name="checker"]');
-    for (let i of selectedPiece) {
-        // Locates checked box element
-        if (i.checked) {
-            // Locates the 'Player 1 choose your piece:' <p> element
-            let chooseYourPieceElement = document.getElementById('player-text');
-            
-            // If playerOne is already selected set the checked box element to playerTwo
-            if (playerOne == 'X' || playerOne == 'O') {
-                // Sets the playerTwo value to the current checked radio
-                playerTwo = i.value;
-                // Check if playerTwo has selected the same piece as playerOne
-                if (playerOne === playerTwo) {
-                    alert("Player one has already selected " + playerOne);
-                    return;
-                }
-
-                console.log("Player 2 choose " + playerTwo);
-                // Removes the text 'Player x choose your piece:' in the <p> element 
-                chooseYourPieceElement.innerText = '';
-                // Locates the radio <div>
-                const hideChoice = document.getElementById('select-piece');
-                // Hides the radio <div> by setting the CSS to display none
-                hideChoice.setAttribute('style', 'display: none;');
-                // Calls on the moves function
-                moves(playerOne, playerTwo);
-                return;
-            }
-            // Sets the playerOne value to the current checked radio
-            playerOne = i.value;
-            console.log("Player 1 choose " + playerOne);
-            // Sets the chooseYourPieceElement <p> element to the displayed text
-            chooseYourPieceElement.innerText = 'Player 2 choose your piece:';
-            return;
-        }
-    }
-
-}
-
+let playerOne = 'X';
+let playerTwo = 'O';
 
 // Setting default numberOfMoves element to zero
 let numberOfMoves = 0;
-// Settign the currentPLayer element to blank
+// Settign the currentPlayer element to blank
 let currentPlayer = '';
 
 // Function to alternate between players and allow the users to make their move
 function moves() {
+    piece.setAttribute('style', 'display: none');
     // Produces an object of the current state of the game-board
     let board = document.getElementById('game-board').children;
     
@@ -112,37 +70,26 @@ function addMove(event) {
 }
 
 // This function checkes the status of the board (What has been entered and where)
-// *This function contains a nested function checkForWin
+// Fills the checkedBoxes array with the box locations that contains a move
+// Fills the piecesSelected array with the pieces entered
+
 function check() {
-    // Sets a blank array for checkedBoxes and piecesSelected
     let checkedBoxes = [];
     let piecesSelected = [];
-    // Locates and sets an arrya of all of the boxes that containes a move 
     let getCheckedBoxes = document.getElementsByClassName('selected');
-    // Iterates through the getCheckedBoxes array
     for (let selected of getCheckedBoxes) {
         let boxes = selected.parentElement.id;
-        // Fills the checkedBoxes array with the box locations that contains a move
         checkedBoxes.unshift(boxes);
         let piece = selected.parentElement.innerText;
-        // Fills the piecesSelected array with the pieces entered
         piecesSelected.unshift(piece);
     }
 
-    console.log("Checked boxes location: " + checkedBoxes + ' ' + piecesSelected);
-
-
-
-
-
     // Function to check for a winning match
-    // Takes three box positions as arguments
+    // Takes three box positions as arguments and checks if they have been selected, and if so are they the same value.
     let draw = false;
     function checkForWin(p1, p2, p3) {
 
-        // Checks if p1, p2 & p3 boxes have been selected
         if (checkedBoxes.includes(p1) === true && checkedBoxes.includes(p2) === true && checkedBoxes.includes(p3) === true) {
-            // Finds the index of the p1, p2 & p3 
             const index1 = checkedBoxes.indexOf(p1);
             const index2 = checkedBoxes.indexOf(p2);
             const index3 = checkedBoxes.indexOf(p3);
@@ -153,14 +100,12 @@ function check() {
                 let b = document.getElementById(p2);
                 let c = document.getElementById(p3);
 
-                a.setAttribute('style', 'color: green');
-                b.setAttribute('style', 'color: green');
-                c.setAttribute('style', 'color: green');
+                a.setAttribute('style', 'color: #006400');
+                b.setAttribute('style', 'color: #006400');
+                c.setAttribute('style', 'color: #006400');
 
                 // If the number of moves is even then playerTwo wins vice versa
                 let displayWinner = document.getElementById('player-text');
-                let dispalyScoreDiv = document.getElementById('score');
-                dispalyScoreDiv.setAttribute('style', 'display: flex; flex-direction: column;');
 
                 let displayP1Score = document.getElementById('player-one-score');
                 let displayP2Score = document.getElementById('player-two-score');
@@ -169,13 +114,38 @@ function check() {
                     p2Wins = p2Wins + 1;
                     sessionStorage.setItem('p2Wins', p2Wins);
                     displayWinner.innerText = 'Player 2 wins!';
-                    displayP1Score.innerText = 'Player 1 = ' + p1Wins;
-                    displayP2Score.innerText = 'Player 2 = ' + p2Wins;
                 } else {
                     p1Wins = p1Wins + 1;
                     displayWinner.innerText  = 'Player 1 wins!';
-                    displayP1Score.innerText = 'Player 1 = ' + p1Wins;
-                    displayP2Score.innerText = 'Player 2 = ' + p2Wins;
+                }
+                
+
+                let playerOneScoreElement = document.createElement('p');
+                playerOneScoreElement.setAttribute('id', 'p1-score')
+                playerOneScoreElement.innerText = '= ' + p1Wins;
+                let playerTwoScoreElement = document.createElement('p');
+                playerTwoScoreElement.setAttribute('id', 'p2-score');
+                playerTwoScoreElement.innerText = '= ' + p2Wins;
+
+                let playerOneScoreLocation = document.getElementById('p1-score');
+                let playerTwoScoreLocation = document.getElementById('p2-score');
+                if(document.getElementById('p1-score')!== null || document.getElementById('p2-score') !== null) {
+                    playerOneScoreLocation.innerText = ' = ' + p1Wins;
+                    playerTwoScoreLocation.innerText = ' = ' + p2Wins;
+                } else {
+                    displayP1Score.append(playerOneScoreElement);
+                    displayP2Score.append(playerTwoScoreElement);
+                }
+                
+                if (p1Wins > p2Wins) {
+                    displayP1Score.setAttribute('style', 'color: green;');
+                    displayP2Score.setAttribute('style', 'color: red;');
+                } else if (p1Wins < p2Wins) {
+                    displayP1Score.setAttribute('style', 'color: red;');
+                    displayP2Score.setAttribute('style', 'color: green;');
+                } else {
+                    displayP1Score.setAttribute('style', 'color: black;');
+                    displayP2Score.setAttribute('style', 'color: black;');
                 }
 
                 // Ensures the player cannot continue to click on a box after a win
@@ -184,21 +154,25 @@ function check() {
                     selection.removeEventListener('click', addMove);
                 }
 
-
-                if (document.getElementById('play-again') !== null) {
-                    //
-                } else {
-                    let playAgain = document.createElement('button');
-                    playAgain.innerText = 'Play Again';
-                    playAgain.setAttribute('id', 'play-again');
-                    dispalyScoreDiv.append(playAgain);
-                    playAgain.addEventListener('click', refresh);
-                }
+                tryAgain();
 
             } else if (numberOfMoves == 9) {
-                console.log("Hello hfs");
                 draw = true;
             }
+        }
+    }
+
+    function tryAgain() {
+        if (document.getElementById('play-again') !== null) {
+            //
+        } else {
+            let startButtonLocation = document.getElementById('select-piece');
+            let playAgain = document.createElement('button');
+            playAgain.innerText = 'Play Again';
+            playAgain.setAttribute('id', 'play-again');
+            playAgain.setAttribute('class', 'buttons');
+            startButtonLocation.append(playAgain);
+            playAgain.addEventListener('click', refresh);        
         }
     }
 
@@ -206,6 +180,7 @@ function check() {
         let refreshAll = document.getElementsByClassName('selected');
         let displayWinner = document.getElementById('player-text');
         let board = document.getElementById('game-board').children;
+        displayWinner.setAttribute('style', 'color: black');
 
         // Add alternating fisrt player functionality
 
@@ -241,18 +216,18 @@ function check() {
     // Win column 1 [column 1, column 2, column 3, row 1, row 2, row 3, diagonal left to right, diagonal right to left]
         
     for (let instance of winningInstances) {
-        console.log("bert " + instance);
         checkForWin(instance[0], instance[1], instance[2]);
     }
 
-        if (draw == true) {
-            if (p1Wins > 0 || p2Wins > 0) {
-                refresh();
-                return;
-            } else {
-                alert('Draw! Want to play again?');
-                refresh();
+        if (numberOfMoves == 9) {
+            let displayWinner = document.getElementById('player-text');
+            displayWinner.setAttribute('style', 'color: red');
+            displayWinner.innerText = 'Draw! Want to play again?';
+            let board = document.getElementById('game-board').children;
+            for (let selection of board) {
+                selection.removeEventListener('click', addMove);
             }
+            tryAgain();
         }
 
 }

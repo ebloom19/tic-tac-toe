@@ -1,5 +1,5 @@
 body {
-    background-color: cornsilk;
+    background-color: beige;
 }
 
 .container {
@@ -16,6 +16,30 @@ body {
     font-family: 'Rock Salt', cursive;
 }
 
+#aside {
+    border: 2px solid black;
+    width: 320px;
+    height: 290px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 190px 0 0 0;
+    background-color: lightgrey;
+}
+
+#select-piece {
+    display: flex;
+    flex-direction: column;
+}
+
+.score {
+    width: auto;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #header {
     grid-area: header;
     display: flex;
@@ -23,11 +47,12 @@ body {
     justify-content: center;
 }
 
-.container > #header > h1 {
+#header > h1 {
     font-size: 40px;
-    width: 320px;
+    width: 500px;
     height: auto;
-    margin: 15px 230px 30px 0;
+    margin: 15px 230px 30px 750px;
+    border-bottom: 2px solid black;
 }
 
 #game-board {
@@ -37,11 +62,6 @@ body {
     height: auto;
     display: flex;
     flex-wrap: wrap;
-}
-
-#select-piece {
-    display: flex;
-    flex-direction: row;
 }
 
 p.default {
@@ -125,11 +145,21 @@ p.selected {
     border-left: solid black 2px;
 }
 
+.buttons {
+    border-radius: 30px;
+    background-color: lightgreen;
+}
+
+.buttons:hover {
+    background-color: cornflowerblue;
+    border-radius: 30px;
+}
+
 @media screen and (max-width: 400px) {
  .container {
-     width: 90vw;
+     width: 350px;
      height: 20vw;
-     transform: scale(0.45);
+     transform: scale(0.3);
      position: absolute;
      display: flex;
      flex-direction: column;
@@ -137,17 +167,31 @@ p.selected {
  }
 
  #game-board {
-     margin: 90px 0 0 45px;
+     margin: 90px 0 50px 0;
  }
 
  .container > #header > h1 {
-    font-size: 45px;
-    width: 360px;
+    font-size: 90px;
+    width: 700px;
     height: auto;
     margin: 15px 0 30px 0;
+}
+
+#aside {
+    transform: scale(1.8);
+    margin-top: 250px;
 }
 
 #header {
     margin-left: 45px;
 }
+
+#begin {
+    margin: 20px;
+}
+
+.buttons {
+    margin: 30px;
+}
+
 }
