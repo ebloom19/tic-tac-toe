@@ -46,7 +46,7 @@ function selection() {
             playerOne = i.value;
             console.log("Player 1 choose " + playerOne);
             // Sets the chooseYourPiece <p> element to the displayed text
-            chooseYourPiece.innerText = 'Player 2 choose your piece';
+            chooseYourPiece.innerText = 'Player 2 choose your piece:';
             return;
         }
     }
@@ -137,7 +137,9 @@ function check() {
 
     // Function to check for a winning match
     // Takes three box positions as arguments
+    let draw = false;
     function checkForWin(p1, p2, p3) {
+
         // Checks if p1, p2 & p3 boxes have been selected
         if (checkedBoxes.includes(p1) === true && checkedBoxes.includes(p2) === true && checkedBoxes.includes(p3) === true) {
             // Finds the index of the p1, p2 & p3 
@@ -193,6 +195,9 @@ function check() {
                     playAgain.addEventListener('click', refresh);
                 }
 
+            } else if (numberOfMoves == 9) {
+                console.log("Hello hfs");
+                draw = true;
             }
         }
     }
@@ -211,7 +216,7 @@ function check() {
             currentPlayer = playerOne;
             displayWinner.innerText = 'Player 1 make your move';
         } else {
-            numberOfMoves = 0;
+            numberOfMoves = -1;
             currentPlayer = playerTwo;
             displayWinner.innerText = 'Player 2 make your move';
         }
@@ -231,27 +236,23 @@ function check() {
         }
     }
 
-        // Win column 1 
-        checkForWin('r1c1', 'r2c1', 'r3c1');
-        // Win column 2
-        checkForWin('r1c2', 'r2c2', 'r3c2');
-        // Win column 3
-        checkForWin('r1c3', 'r2c3', 'r3c3');
-        // Win row 1
-        checkForWin('r1c1', 'r1c2', 'r1c3');
-        // Win row 2
-        checkForWin('r2c1', 'r2c2', 'r2c3');
-        // Win row 3
-        checkForWin('r3c1', 'r3c2', 'r3c3');
-        // Win diagonal left to right
-        checkForWin('r1c1', 'r2c2', 'r3c3');
-        // Win diagonal right to left
-        checkForWin('r1c3', 'r2c2', 'r3c1');
 
-        if (numberOfMoves == 9) {
-            alert('Draw! Click to play again:')
-            
-            refresh();
+    let winningInstances = [['r1c1', 'r2c1', 'r3c1'], ['r1c2', 'r2c2', 'r3c2'], ['r1c3', 'r2c3', 'r3c3'], ['r1c1', 'r1c2', 'r1c3'], ['r2c1', 'r2c2', 'r2c3'], ['r3c1', 'r3c2', 'r3c3'], ['r1c1', 'r2c2', 'r3c3'], ['r1c3', 'r2c2', 'r3c1']];
+    // Win column 1 [column 1, column 2, column 3, row 1, row 2, row 3, diagonal left to right, diagonal right to left]
+        
+    for (let instance of winningInstances) {
+        console.log("bert " + instance);
+        checkForWin(instance[0], instance[1], instance[2]);
+    }
+
+        if (draw == true) {
+            if (p1Wins > 0 || p2Wins > 0) {
+                refresh();
+                return;
+            } else {
+                alert('Draw! Want to play again?');
+                refresh();
+            }
         }
 
 }
