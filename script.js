@@ -19,7 +19,7 @@ function selection() {
         // Locates checked box element
         if (i.checked) {
             // Locates the 'Player 1 choose your piece:' <p> element
-            let chooseYourPiece = document.getElementById('player-text');
+            let chooseYourPieceElement = document.getElementById('player-text');
             
             // If playerOne is already selected set the checked box element to playerTwo
             if (playerOne == 'X' || playerOne == 'O') {
@@ -33,7 +33,7 @@ function selection() {
 
                 console.log("Player 2 choose " + playerTwo);
                 // Removes the text 'Player x choose your piece:' in the <p> element 
-                chooseYourPiece.innerText = '';
+                chooseYourPieceElement.innerText = '';
                 // Locates the radio <div>
                 const hideChoice = document.getElementById('select-piece');
                 // Hides the radio <div> by setting the CSS to display none
@@ -45,8 +45,8 @@ function selection() {
             // Sets the playerOne value to the current checked radio
             playerOne = i.value;
             console.log("Player 1 choose " + playerOne);
-            // Sets the chooseYourPiece <p> element to the displayed text
-            chooseYourPiece.innerText = 'Player 2 choose your piece:';
+            // Sets the chooseYourPieceElement <p> element to the displayed text
+            chooseYourPieceElement.innerText = 'Player 2 choose your piece:';
             return;
         }
     }
@@ -72,18 +72,18 @@ function moves() {
     }
 
     // Locates the <p> element with the id 'player-text'
-    let chooseYourPiece = document.getElementById('player-text');
+    let chooseYourPieceElement = document.getElementById('player-text');
     // If the numberOfMoves is even and under 9 then its playerOne turn
     if (numberOfMoves < 9 && numberOfMoves % 2 === 0) {
-        // Sets the chooseYourPiece element above to the text displayed indicating its playerOne turn
-        chooseYourPiece.innerText = 'Player 1 make your move';
+        // Sets the chooseYourPieceElement element above to the text displayed indicating its playerOne turn
+        chooseYourPieceElement.innerText = 'Player 1 make your move';
         // Sets the currentPlayer to playerOne
         currentPlayer = playerOne;
         // Calls on the check function
         check();
     } else {
-        // Sets the chooseYourPiece element above to the text displayed indicating its playerTwo turn
-        chooseYourPiece.innerText = 'Player 2 make your move';
+        // Sets the chooseYourPieceElement element above to the text displayed indicating its playerTwo turn
+        chooseYourPieceElement.innerText = 'Player 2 make your move';
         // Sets the currentPlayer to playerTwo
         currentPlayer = playerTwo;
         // Calls on the check function
