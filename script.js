@@ -1,3 +1,4 @@
+console.log("TWee " + -1 % 2 === 0);
 // Sets the numebr of wins for playerOne and playerTwo
 let p1Wins = 0;
 let p2Wins = 0;
@@ -68,6 +69,8 @@ function addMove(event) {
     moves();
 
 }
+
+let playerTwoStarted = false
 
 // This function checkes the status of the board (What has been entered and where)
 // Fills the checkedBoxes array with the box locations that contains a move
@@ -156,8 +159,17 @@ function check() {
 
                 tryAgain();
 
+                // && currentPlayer == playerOne
+
             } else if (numberOfMoves == 9) {
-                draw = true;
+                let displayWinner = document.getElementById('player-text');
+                displayWinner.setAttribute('style', 'color: red');
+                displayWinner.innerText = 'Draw! Want to play again?';
+                let board = document.getElementById('game-board').children;
+                for (let selection of board) {
+                    selection.removeEventListener('click', addMove);
+                }
+                tryAgain();
             }
         }
     }
@@ -176,6 +188,9 @@ function check() {
         }
     }
 
+    
+
+   
     function refresh() {
         let refreshAll = document.getElementsByClassName('selected');
         let displayWinner = document.getElementById('player-text');
@@ -188,10 +203,12 @@ function check() {
 
         if (numberOfGames % 2 === 0) {
             numberOfMoves = 0;
+            playerTwoStarted = false;
             currentPlayer = playerOne;
             displayWinner.innerText = 'Player 1 make your move';
         } else {
             numberOfMoves = -1;
+            playerTwoStarted = true;
             currentPlayer = playerTwo;
             displayWinner.innerText = 'Player 2 make your move';
         }
@@ -219,7 +236,7 @@ function check() {
         checkForWin(instance[0], instance[1], instance[2]);
     }
 
-        if (numberOfMoves == 9) {
+        if (numberOfMoves == 8 && playerTwoStarted == true || numberOfMoves == 9) {
             let displayWinner = document.getElementById('player-text');
             displayWinner.setAttribute('style', 'color: red');
             displayWinner.innerText = 'Draw! Want to play again?';
@@ -243,3 +260,23 @@ function check() {
 // Add alternating first turn player
 // Add draw function
 
+
+
+function emptSquares() {
+    let emptyBoxes = [];
+    let test = document.getElementsByClassName('selected');
+    for (let check of test) {
+        console.log("Blah " + check);
+        if (check.innerText == null) {
+            emptyBoxes.unshift(check.parentElement.id);
+        }
+    }
+    return emptyBoxes[0];
+}
+
+console.log("This is the first empty box location: " + emptSquares());
+
+function bestSpot() {
+    // Will always play in one of the first empty squares
+    return emptySquares()[0];
+}
