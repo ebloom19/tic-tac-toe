@@ -1,51 +1,35 @@
-console.log("TWee " + -1 % 2 === 0);
-// Sets the numebr of wins for playerOne and playerTwo
+const start = document.getElementById('begin');
+start.addEventListener('click', moves);
+
+// Creating elements and their default values
+let playerOne = 'X';
+let playerTwo = 'O';
+let numberOfMoves = 0;
+let currentPlayer = '';
 let p1Wins = 0;
 let p2Wins = 0;
 
-// Find enter button
-const piece = document.getElementById('begin');
-// Add on click event listener to the enter button
-piece.addEventListener('click', moves);
+let board = document.getElementById('game-board').children;
+let playerTwoStarted = false
 
-// Setting blank PlayerOne & PlayerTwo elements
-let playerOne = 'X';
-let playerTwo = 'O';
-
-// Setting default numberOfMoves element to zero
-let numberOfMoves = 0;
-// Settign the currentPlayer element to blank
-let currentPlayer = '';
 
 // Function to alternate between players and allow the users to make their move
 function moves() {
-    piece.setAttribute('style', 'display: none');
-    // Produces an object of the current state of the game-board
-    let board = document.getElementById('game-board').children;
+    start.setAttribute('style', 'display: none');
     
-    // Iterates through each box in the game board element previously set
+    // Adds an event listener to all boxes
     for (let selection of board) {
-        // Adds an event listener to all boxes in the game board (Enabling the user to click)
-        // When the user makes a selection it calls on the addMove function
         selection.addEventListener('click', addMove);
     }
 
-    // Locates the <p> element with the id 'player-text'
     let chooseYourPieceElement = document.getElementById('player-text');
-    // If the numberOfMoves is even and under 9 then its playerOne turn
     if (numberOfMoves < 9 && numberOfMoves % 2 === 0) {
-        // Sets the chooseYourPieceElement element above to the text displayed indicating its playerOne turn
         chooseYourPieceElement.innerText = 'Player 1 make your move';
-        // Sets the currentPlayer to playerOne
         currentPlayer = playerOne;
-        // Calls on the check function
         check();
     } else {
-        // Sets the chooseYourPieceElement element above to the text displayed indicating its playerTwo turn
         chooseYourPieceElement.innerText = 'Player 2 make your move';
-        // Sets the currentPlayer to playerTwo
         currentPlayer = playerTwo;
-        // Calls on the check function
         check();
     }
 }
@@ -54,23 +38,14 @@ function moves() {
 // Uses the event as an argument to locate the selected box
 function addMove(event) {
     event.target.removeEventListener('click', addMove);
-    // Sets the class to selected of the first child element of the target element
     event.target.children[0].setAttribute('class', 'selected');
-    // Adds 1 to the numberOfMoves counter
     numberOfMoves = numberOfMoves + 1;
-
-    // Sets new element move to the <p> element in the box (To input the players piece)
     let move = event.target.children[0];
-    // Sets move elemtn text to the currentPlayer piece
     move.innerText = currentPlayer; 
     console.log('number of moves ' + numberOfMoves);
-
-    // Calls on the moves function above
     moves();
-
 }
 
-let playerTwoStarted = false
 
 // This function checkes the status of the board (What has been entered and where)
 // Fills the checkedBoxes array with the box locations that contains a move
@@ -89,7 +64,6 @@ function check() {
 
     // Function to check for a winning match
     // Takes three box positions as arguments and checks if they have been selected, and if so are they the same value.
-    let draw = false;
     function checkForWin(p1, p2, p3) {
 
         if (checkedBoxes.includes(p1) === true && checkedBoxes.includes(p2) === true && checkedBoxes.includes(p3) === true) {
@@ -126,6 +100,7 @@ function check() {
                 let playerOneScoreElement = document.createElement('p');
                 playerOneScoreElement.setAttribute('id', 'p1-score')
                 playerOneScoreElement.innerText = '= ' + p1Wins;
+
                 let playerTwoScoreElement = document.createElement('p');
                 playerTwoScoreElement.setAttribute('id', 'p2-score');
                 playerTwoScoreElement.innerText = '= ' + p2Wins;
@@ -152,29 +127,17 @@ function check() {
                 }
 
                 // Ensures the player cannot continue to click on a box after a win
-                let board = document.getElementById('game-board').children;
                 for (let selection of board) {
                     selection.removeEventListener('click', addMove);
                 }
 
                 tryAgain();
-
-                // && currentPlayer == playerOne
-
-            } else if (numberOfMoves == 9) {
-                let displayWinner = document.getElementById('player-text');
-                displayWinner.setAttribute('style', 'color: red');
-                displayWinner.innerText = 'Draw! Want to play again?';
-                let board = document.getElementById('game-board').children;
-                for (let selection of board) {
-                    selection.removeEventListener('click', addMove);
-                }
-                tryAgain();
-            }
+            } 
         }
     }
-
+    // Appends play again button 
     function tryAgain() {
+        // If play again button already exists do nothing (Stops multiple buttons appearing)
         if (document.getElementById('play-again') !== null) {
             //
         } else {
@@ -188,17 +151,13 @@ function check() {
         }
     }
 
-    
-
-   
+    // Function clears the board to its default state & sets the next first player
     function refresh() {
         let refreshAll = document.getElementsByClassName('selected');
         let displayWinner = document.getElementById('player-text');
-        let board = document.getElementById('game-board').children;
         displayWinner.setAttribute('style', 'color: black');
 
-        // Add alternating fisrt player functionality
-
+        // Add alternating first player between games functionality
         let numberOfGames = p1Wins + p2Wins;
 
         if (numberOfGames % 2 === 0) {
@@ -213,11 +172,11 @@ function check() {
             displayWinner.innerText = 'Player 2 make your move';
         }
 
-
         for (let selection of board) {
             selection.addEventListener('click', addMove);
         }
 
+        // Ensures the enire board is cleared and returned to default state
         while (refreshAll.length > 0) {
             for (let remove of refreshAll) {
                 remove.innerText = '';
@@ -235,12 +194,11 @@ function check() {
     for (let instance of winningInstances) {
         checkForWin(instance[0], instance[1], instance[2]);
     }
-
-        if (numberOfMoves == 8 && playerTwoStarted == true || numberOfMoves == 9) {
+        // To check for draw
+        if (numberOfMoves == 8 && playerTwoStarted == true) {
             let displayWinner = document.getElementById('player-text');
             displayWinner.setAttribute('style', 'color: red');
             displayWinner.innerText = 'Draw! Want to play again?';
-            let board = document.getElementById('game-board').children;
             for (let selection of board) {
                 selection.removeEventListener('click', addMove);
             }
@@ -252,31 +210,5 @@ function check() {
 // Bugs to fix:
 
 
-// Functionality to add:
-// Tally number of wins for each player (Use localStorage)
-// Add vs pc option
-// Add css transition or filter to show win
-// Add 4x4, 5x5 options
-// Add alternating first turn player
-// Add draw function
 
 
-
-function emptSquares() {
-    let emptyBoxes = [];
-    let test = document.getElementsByClassName('selected');
-    for (let check of test) {
-        console.log("Blah " + check);
-        if (check.innerText == null) {
-            emptyBoxes.unshift(check.parentElement.id);
-        }
-    }
-    return emptyBoxes[0];
-}
-
-console.log("This is the first empty box location: " + emptSquares());
-
-function bestSpot() {
-    // Will always play in one of the first empty squares
-    return emptySquares()[0];
-}
