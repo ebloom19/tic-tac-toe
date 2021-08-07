@@ -5,11 +5,11 @@ let numberOfMoves = 0;
 let currentPlayer = '';
 let p1Wins = 0;
 let p2Wins = 0;
-
-let board = document.getElementById('game-board').children;
-let resultsText = document.getElementById('player-text');
-let getCheckedBoxes = document.getElementsByClassName('selected');
 let playerTwoStarted = false
+
+const board = document.getElementById('game-board').children;
+const resultsText = document.getElementById('player-text');
+const getCheckedBoxes = document.getElementsByClassName('selected');
 
 const start = document.getElementById('begin');
 start.addEventListener('click', moves);
