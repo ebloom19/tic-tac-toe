@@ -63,7 +63,7 @@ function check() {
     // Takes three box positions as arguments and checks if they have been selected, and if so are they the same value.
     function checkForWin(p1, p2, p3) {
         // Checks to see if the locations include entries
-        if (checkedGridLocation.includes(p1) === true && checkedGridLocation.includes(p2) === true && checkedGridLocation.includes(p3) === true) {
+        if (checkedGridLocation.includes(p1) && checkedGridLocation.includes(p2) && checkedGridLocation.includes(p3)) {
             const index1 = checkedGridLocation.indexOf(p1);
             const index2 = checkedGridLocation.indexOf(p2);
             const index3 = checkedGridLocation.indexOf(p3);
@@ -127,8 +127,10 @@ function check() {
                     selection.removeEventListener('click', addMove);
                 }
                 tryAgain();
-            } 
+                return true;
+            }
         }
+        return false;
     }
 
     // Appends play again button 
@@ -183,11 +185,14 @@ function check() {
     // Winning matches [column 1, column 2, column 3, row 1, row 2, row 3, diagonal left to right, diagonal right to left]
     let winningInstances = [['r1c1', 'r2c1', 'r3c1'], ['r1c2', 'r2c2', 'r3c2'], ['r1c3', 'r2c3', 'r3c3'], ['r1c1', 'r1c2', 'r1c3'], ['r2c1', 'r2c2', 'r2c3'], ['r3c1', 'r3c2', 'r3c3'], ['r1c1', 'r2c2', 'r3c3'], ['r1c3', 'r2c2', 'r3c1']];
     for (let instance of winningInstances) {
-        checkForWin(instance[0], instance[1], instance[2]);
+        let hasWinner = checkForWin(instance[0], instance[1], instance[2]);
+        if (hasWinner) {
+            break;
+        }
     }
 
         // To check for draw (If player two has started number of moves starts on -1)
-        if (numberOfMoves == 8 && playerTwoStarted == true || numberOfMoves == 9 && playerTwoStarted == false) {
+        if (numberOfMoves == 8 && playerTwoStarted || numberOfMoves == 9 && !playerTwoStarted) {
             resultsText.setAttribute('style', 'color: red');
             resultsText.innerText = 'Draw! Want to play again?';
             for (let selection of board) {
