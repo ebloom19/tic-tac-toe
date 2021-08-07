@@ -156,42 +156,42 @@ p.selected {
 }
 
 @media screen and (max-width: 400px) {
- .container {
-     width: 350px;
-     height: 20vw;
-     transform: scale(0.3);
-     position: absolute;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
- }
+    .container {
+        width: 96vw;
+        height: 30vw;
+        transform: scale(0.35);
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
- #game-board {
-     margin: 90px 0 50px 0;
- }
+    #game-board {
+        margin: 90px 0 50px 0;
+    }
 
- .container > #header > h1 {
-    font-size: 90px;
-    width: 700px;
-    height: auto;
-    margin: 15px 0 30px 0;
-}
+    .container > #header > h1 {
+        font-size: 90px;
+        width: 700px;
+        height: auto;
+        margin: 10px 0 30px 0;
+    }
 
-#aside {
-    transform: scale(2.5);
-    margin-top: 250px;
-}
+    #aside {
+        transform: scale(2.5);
+        margin-top: 250px;
+    }
 
-#header {
-    margin-left: 45px;
-}
+    #header {
+        margin-left: 45px;
+    }
 
-#begin {
-    margin: 20px;
-}
+    #begin {
+        margin: 20px;
+    }
 
-.buttons {
-    margin: 30px;
-}
+    .buttons {
+        margin: 30px;
+    }
 
 }
