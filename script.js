@@ -1,4 +1,4 @@
-// Declaring elements and their default values (If used multipe times throught the code)
+// Declaring elements and their default values (If used multiple times throughout the code)
 let playerOne = 'X';
 let playerTwo = 'O';
 let numberOfMoves = 0;
@@ -46,7 +46,7 @@ function addMove(event) {
 }
 
 
-// This function checkes the status of the board (What has been entered and where)
+// This function checks the status of the board (What has been entered and where)
 // Fills the checkedGridLocation array with the box locations that contains a move
 // Fills the piecesSelected array with the pieces entered
 function check() {
@@ -67,7 +67,7 @@ function check() {
             const index1 = checkedGridLocation.indexOf(p1);
             const index2 = checkedGridLocation.indexOf(p2);
             const index3 = checkedGridLocation.indexOf(p3);
-            // Checks to see if the pices wihtin the selcted boxes are equal
+            // Checks to see if the pieces within the selected boxes are equal
             if (piecesSelected[index1] == piecesSelected[index2] && piecesSelected[index2] == piecesSelected[index3]) {
                 
                 let firstMatch = document.getElementById(p1);
@@ -193,10 +193,15 @@ function check() {
 
         // To check for draw (If player two has started number of moves starts on -1)
         if (numberOfMoves == 8 && playerTwoStarted || numberOfMoves == 9 && !playerTwoStarted) {
-            resultsText.setAttribute('style', 'color: red');
-            resultsText.innerText = 'Draw! Want to play again?';
             for (let selection of board) {
                 selection.removeEventListener('click', addMove);
+            }
+            // Stops draw text from showing if player wins 2 in a row and thinks its a draw
+            if (resultsText.innerHTML === 'Player 1 wins!' || resultsText.innerText === 'Player 2 wins!') {
+                //
+            } else {
+                resultsText.setAttribute('style', 'color: red');
+                resultsText.innerText = 'Draw! Want to play again?';
             }
             tryAgain();
         }
