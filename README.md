@@ -1,4 +1,4 @@
-# Tic-tac-toe
+# [Tic-tac-toe](https://ebloom19.github.io/tic-tac-toe/)
 
 How to play: 
 - Click start
